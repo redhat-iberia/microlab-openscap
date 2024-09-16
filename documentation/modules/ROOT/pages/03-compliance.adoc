@@ -1,0 +1,55 @@
+= Ejecución de compliance con OpenSCAP
+include::_attributes.adoc[]
+
+[#evaluacion]
+== Evaluación de compliance
+
+Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title: DISA STIG for Red Hat Enterprise Linux 9
+                                Id: xccdf_org.ssgproject.content_profile_stig
+...
+[root@client ~]#
+----
+
+El profile *DISA STIG* es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title   Record Events that Modify User/Group Information - /etc/shadow
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_usergroup_modification_shadow
+Ident   CCE-83725-2
+Result  fail
+
+Title   System Audit Directories Must Be Group Owned By Root
+Rule    xccdf_org.ssgproject.content_rule_directory_group_ownership_var_log_audit
+Ident   CCE-90516-6
+Result  pass
+...
+[root@client ~]#
+----
+
+Podemos ver como en el ejemplo para cada una de las políticas del estándar, cuáles han pasado el test y cuáles han fallado.
+
+También podemos generar un report html a partir del anterior fichero de resultados con:
+
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap xccdf generate report /root/results.xml > results.html
+[root@client ~]#
+----
+
+Si abrimos el report vemos lo siguiente:
+
+image::d440578a-bf06-42dc-95fc-b731de119987.png[]
+
