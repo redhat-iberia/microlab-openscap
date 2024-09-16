@@ -75,6 +75,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#evaluacion">Evaluación de compliance</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#customizacion">Customización de un perfil de compliance</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -119,7 +122,7 @@ Title: DISA STIG for Red Hat Enterprise Linux 9
 <div class="paragraph">
 <p>El profile <strong>DISA STIG</strong> es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:</p>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
@@ -142,7 +145,7 @@ Result  pass
 <div class="paragraph">
 <p>También podemos generar un report html a partir del anterior fichero de resultados con:</p>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate report /root/results.xml &gt; results.html
 [root@client ~]#</code></pre>
@@ -155,6 +158,70 @@ Result  pass
 <div class="content">
 <img src="_images/03-evaluacion-report.png" alt="03 evaluacion report">
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="customizacion"><a class="anchor" href="#customizacion"></a>Customización de un perfil de compliance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para customizar un perfil de compliance hemos de crear un <code>tailoring file</code>, para ello ejecutaremos el programa de <code>scap-workbench</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# scap-workbench</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El programa carga los <em>data streams</em> que estén instalados en el servidor:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-workbench.png" alt="03 customizacion workbench">
+</div>
+</div>
+<div class="paragraph">
+<p>Vamos a <strong>Customize</strong> y seleccionamos un nombre de perfil. A continuación marcamos <strong>Deselect all</strong>, así empezaremos con todas las reglas deshabilitadas:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-deselect.png" alt="03 customizacion deselect">
+</div>
+</div>
+<div class="paragraph">
+<p>Marcaremos las siguientes opciones <strong>Ensure PAM Enforces Password Requirements - Minimum Lenght</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-pass-req.png" alt="03 customizacion pass req">
+</div>
+</div>
+<div class="paragraph">
+<p>y editamos la opción de <strong>minlen</strong> para setearlo a 12:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-pass-req-12.png" alt="03 customizacion pass req 12">
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación marcaremos la opción para instalar <strong>AIDE</strong> y también para hacer que <strong>audit</strong> registre todas las invocaciones de <strong>sudo</strong> definidas en <strong>sudoers</strong> y en <strong>sudoers.d</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-aide.png" alt="03 customizacion aide">
+</div>
+</div>
+<div class="paragraph">
+<p>Con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">image</dt>
+<dd>
+<p>03-customizacion-tailoring-file.png[]</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
