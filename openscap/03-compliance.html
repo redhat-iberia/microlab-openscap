@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Gestión del compliance con OpenSCAP :: Gestión del compliance con OpenSCAP</title>
-    <link rel="canonical" href="https://redhat-iberia.github.io/microlab-openscap/openscap/index.html">
-    <link rel="next" href="01-introduccion.html">
+    <title>Ejecución de compliance con OpenSCAP :: Gestión del compliance con OpenSCAP</title>
+    <link rel="canonical" href="https://redhat-iberia.github.io/microlab-openscap/openscap/03-compliance.html">
+    <link rel="prev" href="02-instalacion.html#instalacion">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -68,12 +68,12 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="03-compliance.html">3. Ejecución de compliance con OpenSCAP</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="03-compliance.html#evaluacion">Evaluación de compliance</a>
+    <a class="nav-link" href="#evaluacion">Evaluación de compliance</a>
   </li>
 </ul>
   </li>
@@ -88,76 +88,78 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="index.html" class="home-link is-current"></a>
+  <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Gestión del compliance con OpenSCAP</a></li>
+    <li><a href="03-compliance.html">3. Ejecución de compliance con OpenSCAP</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-iberia/microlab-openscap/edit/master/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-iberia/microlab-openscap/edit/master/documentation/modules/ROOT/pages/03-compliance.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Gestión del compliance con OpenSCAP</h1>
-<div class="sect1 text-center strong">
-<h2>Resumen</h2>
+<h1 class="page">Ejecución de compliance con OpenSCAP</h1>
+<div class="sect1">
+<h2 id="evaluacion"><a class="anchor" href="#evaluacion"></a>Evaluación de compliance</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Microlab de OpenScap para Summit Connect Madrid 2024.</p>
+<p>Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:</p>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title: DISA STIG for Red Hat Enterprise Linux 9
+                                Id: xccdf_org.ssgproject.content_profile_stig
+...
+[root@client ~]#</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>El objetivo de este lab es evaluar y comprobar políticas de Openscap usando un perfil estándar de seguridad.</p>
+<p>El profile <strong>DISA STIG</strong> es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title   Record Events that Modify User/Group Information - /etc/shadow
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_usergroup_modification_shadow
+Ident   CCE-83725-2
+Result  fail
+
+Title   System Audit Directories Must Be Group Owned By Root
+Rule    xccdf_org.ssgproject.content_rule_directory_group_ownership_var_log_audit
+Ident   CCE-90516-6
+Result  pass
+...
+[root@client ~]#</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Para ello:</p>
+<p>Podemos ver como en el ejemplo para cada una de las políticas del estándar, cuáles han pasado el test y cuáles han fallado.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Comprobaremos si nuestros servidores son compliance usando el perfil de DISA STIG.</p>
-</li>
-<li>
-<p>Aplicaremos una customización sencilla partiendo de ese perfil.</p>
-</li>
-<li>
-<p>Comprobaremos parámetros de password de los usuarios.</p>
-</li>
-<li>
-<p>Instalaremos software y chequearemos que todos los comandos con sudo son auditados.</p>
-</li>
-<li>
-<p>Finalmente generaremos una remediación con Ansible para aquellos checks de compliance que no cumplimos y la aplicaremos en los servidores.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>También podemos generar un report html a partir del anterior fichero de resultados con:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate report /root/results.xml &gt; results.html
+[root@client ~]#</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Si abrimos el report vemos lo siguiente:</p>
 </div>
-<div class="sect1 tiles browse">
-<h2>Browse modules</h2>
-<div class="sectionbody">
-<div class="ulist tile">
-<div class="title"><a href="01-introduccion.html" class="xref page">Get Started</a></div>
-<ul>
-<li>
-<p><a href="01-introduccion.html#minikube" class="xref page">Minikube</a></p>
-</li>
-</ul>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="d440578a-bf06-42dc-95fc-b731de119987.png" alt="d440578a bf06 42dc 95fc b731de119987">
 </div>
-<div class="ulist tile">
-<div class="title"><a href="#02-deploy.adoc" class="xref unresolved">Deploying</a></div>
-<ul>
-<li>
-<p><a href="#02-deploy.adoc#package" class="xref unresolved">Package the Application</a></p>
-</li>
-<li>
-<p><a href="#02-deploy.adoc#deploy" class="xref unresolved">Deploy the Application</a></p>
-</li>
-</ul>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="01-introduccion.html">1. Introducción</a></span>
+  <span class="prev"><a href="02-instalacion.html#instalacion">Instalación de paquetería</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

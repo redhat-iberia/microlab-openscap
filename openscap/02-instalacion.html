@@ -6,6 +6,7 @@
     <title>Instalación :: Gestión del compliance con OpenSCAP</title>
     <link rel="canonical" href="https://redhat-iberia.github.io/microlab-openscap/openscap/02-instalacion.html">
     <link rel="prev" href="#02-Instalación.adoc">
+    <link rel="next" href="03-compliance.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -68,6 +69,15 @@
   </li>
 </ul>
   </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-compliance.html">3. Ejecución de compliance con OpenSCAP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="03-compliance.html#evaluacion">Evaluación de compliance</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
 </ul>
@@ -109,10 +119,14 @@
 <div class="paragraph">
 <p>El paquete <strong>scap-security-guide</strong> instala los data streams necesarios en la ruta <em>/usr/share/xml/scap/ssg/content/</em>. Este data stream contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero <em>XCCDF</em> (Extensible Configuration Checklist Description File) <em>ssg-rhel9-xccdf.xml</em>.</p>
 </div>
+<div class="paragraph">
+<p>Por último el paquete <strong>scap-workbench</strong> nos servirá para generar perfiles custom de compliance, como veremos más adelante. Sólo añadir que también permite evaluar el compliance en local o en sistemas remotos a través de <em>SSH</em>.</p>
+</div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="#02-Instalación.adoc">2. Instalación de OpenScap</a></span>
+  <span class="next"><a href="03-compliance.html">3. Ejecución de compliance con OpenSCAP</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
