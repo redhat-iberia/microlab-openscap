@@ -13,9 +13,8 @@ Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda l
 [root@client ~]# dnf install -y openscap-scanner scap-security-guide scap-workbench
 ----
 
-El paquete _openscap-scanner_ instala la herramienta _oscap_ desde la cuál podremos lanzar nuestros scans, generar reports o incluso generar las remediaciones con Ansible.
+El paquete *openscap-scanner* instala la herramienta _oscap_ desde la cuál podremos lanzar los escaneos de compliance sobre nuestros sistemas, generar reports o incluso generar las remediaciones con Ansible.
 
-El paquete _scap-security-guide_ instala los data streams necesarios en la ruta _/usr/share/xml/scap/ssg/content/_. Este data stream contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero _XCCDF_ (Extensible Configuration Checklist Description File) _ssg-rhel9-xccdf.xml_.
+El paquete *scap-security-guide* instala los data streams necesarios en la ruta _/usr/share/xml/scap/ssg/content/_. Este data stream contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero _XCCDF_ (Extensible Configuration Checklist Description File) _ssg-rhel9-xccdf.xml_.
 
-Por último el paquete _scap-workbench_ nos servirá para generar perfiles custom de compliance, como veremos más adelante. Sólo añadir que también permite evaluar el compliance en local o en sistemas remotos a través de _SSH_.
 
