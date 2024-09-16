@@ -2,4 +2,4 @@
 ** xref:01-setup.adoc#resumen[Resumen]
 
 * xref:02-Instalación.adoc[2. Instalación de OpenScap]
-** xref:02-deploy.adoc#instalacion[Instalación de paquetería]
+** xref:02-instalacion.adoc#instalacion[Instalación de paquetería]
