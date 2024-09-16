@@ -78,6 +78,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#customizacion">Customización de un perfil de compliance</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#ansible">Generación de un playbook para aplicar remediaciones de forma automática</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -215,13 +218,181 @@ Result  pass
 <div class="paragraph">
 <p>Con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">image</dt>
-<dd>
-<p>03-customizacion-tailoring-file.png[]</p>
-</dd>
-</dl>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-tailoring-file.png" alt="03 customizacion tailoring file">
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación, vamos a <strong>File &#8594; Save Customization Only</strong>, le damos el nombre de <strong>lab-tailoring.xml</strong> y lo guardamos dentro de <strong>/root</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Con este <em>tailoring file</em>, podemos ejecutar un nuevo scan que sólo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info lab-tailoring.xml
+Document type: XCCDF Tailoring
+Imported: 2024-09-12T15:28:28
+Benchmark Hint: /tmp/scap-workbench-feqbsL/ssg-rhel9-ds.xml
+Profiles:
+        Title: ANSSI-BP-028 (enhanced) [CUSTOMIZED]
+                Id: **xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized**
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vemos que el nombre del perfil nos aparece al final, donde pone Id. Con este nombre de perfil podemos lanzar un scan que compruebe las 4 reglas y guardarlas también en fichero de resultados:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+--- Starting Evaluation ---
+
+Title   Install AIDE
+Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
+Ident   CCE-90843-4
+Result  fail
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Length
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen
+Ident   CCE-83579-3
+Result  fail
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers
+Ident   CCE-90176-9
+Result  fail
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers.d/
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers_d
+Ident   CCE-89498-0
+Result  fail
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vemos que ha fallado el test de las 4 reglas. Para corregirlo, crearemos un <em>playbook</em> de Ansible que lo hará automáticamente.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ansible"><a class="anchor" href="#ansible"></a>Generación de un playbook para aplicar remediaciones de forma automática</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Con el fichero de resultados del anterior apartado <em>/root/lab-results-tailoring.xml</em> podemos crear un playbook usando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-t
+ailoring.xml &gt; fix.yml
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Necesitamos crear un inventario ya que el <em>playbook</em> tiene la sección <strong>hosts: all</strong> para limitarlo hemos de añadir lo siguiente <strong>echo client &gt; inventory</strong>, y con esto ya podemos ejecutar el playbook generado:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# ansible-playbook -i inventory fix.yml
+
+PLAY [all] *******************************************************************************
+
+TASK [Gathering Facts] *******************************************************************
+ok: [client]
+
+TASK [Ensure aide is installed] **********************************************************
+changed: [client]
+
+TASK [Gather the package facts] **********************************************************
+ok: [client]
+
+TASK [Ensure PAM Enforces Password Requirements - Minimum Length - Ensure PAM variable minlen is set accordingly] ***
+changed: [client]
+
+TASK [Gather the package facts] **********************************************************
+ok: [client]
+
+TASK [Check if watch rule for /etc/sudoers already exists in /etc/audit/rules.d/] ********
+ok: [client]
+
+TASK [Search /etc/audit/rules.d for other rules with specified key actions] **************
+ok: [client]
+
+TASK [Use /etc/audit/rules.d/actions.rules as the recipient for the rule] ****************
+ok: [client]
+
+TASK [Use matched file as the recipient for the rule] ************************************
+skipping: [client]
+
+TASK [Add watch rule for /etc/sudoers in /etc/audit/rules.d/] ****************************
+changed: [client]
+
+TASK [Check if watch rule for /etc/sudoers already exists in /etc/audit/audit.rules] *****
+ok: [client]
+
+TASK [Add watch rule for /etc/sudoers in /etc/audit/audit.rules] *************************
+changed: [client]
+
+TASK [Gather the package facts] **********************************************************
+ok: [client]
+
+TASK [Check if watch rule for /etc/sudoers.d/ already exists in /etc/audit/rules.d/] *****
+ok: [client]
+
+TASK [Search /etc/audit/rules.d for other rules with specified key actions] **************
+ok: [client]
+
+TASK [Use /etc/audit/rules.d/actions.rules as the recipient for the rule] ****************
+skipping: [client]
+
+TASK [Use matched file as the recipient for the rule] ************************************
+ok: [client]
+
+TASK [Add watch rule for /etc/sudoers.d/ in /etc/audit/rules.d/] *************************
+changed: [client]
+
+TASK [Check if watch rule for /etc/sudoers.d/ already exists in /etc/audit/audit.rules] ***
+ok: [client]
+
+TASK [Add watch rule for /etc/sudoers.d/ in /etc/audit/audit.rules] **********************
+changed: [client]
+
+PLAY RECAP *******************************************************************************
+client                     : ok=18   changed=6    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un nuevo scan en el servidor nos debería dar los 4 checks como ok:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+--- Starting Evaluation ---
+
+Title   Install AIDE
+Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
+Ident   CCE-90843-4
+Result  pass
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Length
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen
+Ident   CCE-83579-3
+Result  pass
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers
+Ident   CCE-90176-9
+Result  pass
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers.d/
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers_d
+Ident   CCE-89498-0
+Result  pass
+
+[root@client ~]#</code></pre>
+</div>
 </div>
 </div>
 </div>
