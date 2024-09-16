@@ -3,9 +3,11 @@
 :!sectids:
 
 [.text-center.strong]
-== Publish Services to Kubernetes
+== Resumen
 
-A Kubernetes tutorial to show how you can deploy a Java service to a Kubernetes cluster as it was a child game.
+Microlab de OpenScap para Summit Connect Madrid 2024.
+
+El objetivo de este lab es evaluar y comprobar políticas de Openscap usando un perfil estándar de seguridad. Para ello comprobaremos si nuestros servidores son compliance usando el perfil de DISA STIG. Después aplicaremos una customización sencilla partiendo de ese perfil, comprobaremos parámetros de password de los usuarios, instalaremos software y chequearemos que todos los comandos con sudo son auditados. Finalmente generaremos una remediación con Ansible para aquellos checks de compliance que no cumplimos y la aplicaremos en los servidores. 
 
 [.tiles.browse]
 == Browse modules
