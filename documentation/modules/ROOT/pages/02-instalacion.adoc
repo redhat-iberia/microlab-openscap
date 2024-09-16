@@ -1,0 +1,14 @@
+= Instalación
+include::_attributes.adoc[]
+
+[#service]
+== Instalación de OpenSCAP
+
+Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# dnf install -y openscap-scanner scap-security-guide scap-workbench
+----
