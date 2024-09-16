@@ -51,5 +51,5 @@ También podemos generar un report html a partir del anterior fichero de resulta
 
 Si abrimos el report vemos lo siguiente:
 
-image::d440578a-bf06-42dc-95fc-b731de119987.png[]
+image::03-evaluacion-report.png[]
 
