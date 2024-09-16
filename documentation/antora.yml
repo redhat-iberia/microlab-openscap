@@ -1,5 +1,5 @@
-name: template-tutorial
-title: Template Tutorial
+name: openscap
+title: Gestión del compliance con OpenSCAP
 version: master
 nav:
   - modules/ROOT/nav.adoc

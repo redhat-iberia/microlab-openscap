@@ -2,9 +2,9 @@ runtime:
   cache_dir: ./.cache/antora
 
 site:
-  title: Template Tutorial
-  url: https://redhat-scholars.github.io/course-template
-  start_page: template-tutorial::index.adoc
+  title: Gestión del compliance con OpenSCAP
+  url: https://redhat-iberia.github.io/microlab-openscap
+  start_page: openscap::index.adoc
 
 content:
   sources:
