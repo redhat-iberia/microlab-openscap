@@ -18,7 +18,6 @@ Title: DISA STIG for Red Hat Enterprise Linux 9
 
 El profile *DISA STIG* es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
 
-[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
@@ -40,7 +39,6 @@ Podemos ver como en el ejemplo para cada una de las políticas del estándar, cu
 
 También podemos generar un report html a partir del anterior fichero de resultados con:
 
-[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf generate report /root/results.xml > results.html
@@ -50,4 +48,39 @@ También podemos generar un report html a partir del anterior fichero de resulta
 Si abrimos el report vemos lo siguiente:
 
 image::03-evaluacion-report.png[]
+
+[#customizacion]
+== Customización de un perfil de compliance
+
+Para customizar un perfil de compliance hemos de crear un `tailoring file`, para ello ejecutaremos el programa de `scap-workbench`:
+
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# scap-workbench
+----
+
+El programa carga los _data streams_ que estén instalados en el servidor:
+
+image::03-customizacion-workbench.png[]
+
+Vamos a *Customize* y seleccionamos un nombre de perfil. A continuación marcamos *Deselect all*, así empezaremos con todas las reglas deshabilitadas:
+
+image::03-customizacion-deselect.png[]
+
+Marcaremos las siguientes opciones *Ensure PAM Enforces Password Requirements - Minimum Lenght*:
+
+image::03-customizacion-pass-req.png[]
+
+y editamos la opción de *minlen* para setearlo a 12:
+
+image::03-customizacion-pass-req-12.png[]
+
+A continuación marcaremos la opción para instalar *AIDE* y también para hacer que *audit* registre todas las invocaciones de *sudo* definidas en *sudoers* y en *sudoers.d*:
+
+image::03-customizacion-aide.png[]
+
+Con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
+
+image:: 03-customizacion-tailoring-file.png[]
+
 

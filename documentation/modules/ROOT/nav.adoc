@@ -6,3 +6,4 @@
 
 * xref:03-compliance.adoc[3. Ejecución de compliance con OpenSCAP]
 ** xref:03-compliance.adoc#evaluacion[Evaluación de compliance]
+** xref:03-compliance.adoc#customizacion[Customización de un perfil de compliance]
