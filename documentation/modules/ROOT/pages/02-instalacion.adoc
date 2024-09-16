@@ -1,7 +1,7 @@
 = Instalación
 include::_attributes.adoc[]
 
-[#service]
+[#instalacion]
 == Instalación de OpenSCAP
 
 Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema:
