@@ -6,8 +6,6 @@ include::_attributes.adoc[]
 
 Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:
 
-[.lines_7]
-[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
