@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ejecución de compliance con OpenSCAP :: Gestión del compliance con OpenSCAP</title>
+    <link rel="canonical" href="https://redhat-iberia.github.io/microlab-openscap/03-compliance.html">
+    <link rel="prev" href="02-instalacion.html#instalacion">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="./_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="./_/img/RHDLogo.svg" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-iberia.github.io/microlab-openscap">Gestión del compliance con OpenSCAP</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="ROOT" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="01-introduccion.html">1. Introducción</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#01-setup.adoc#resumen">Resumen</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#02-Instalación.adoc">2. Instalación de OpenScap</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="02-instalacion.html#instalacion">Instalación de paquetería</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="03-compliance.html">3. Ejecución de compliance con OpenSCAP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#evaluacion">Evaluación de compliance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#customizacion">Customización de un perfil de compliance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#ansible">Generación de un playbook para aplicar remediaciones de forma automática</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Gestión del compliance con OpenSCAP</a></li>
+    <li><a href="03-compliance.html">3. Ejecución de compliance con OpenSCAP</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-iberia/microlab-openscap/edit/master/documentation/modules/ROOT/pages/03-compliance.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Ejecución de compliance con OpenSCAP</h1>
+<div class="sect1">
+<h2 id="evaluacion"><a class="anchor" href="#evaluacion"></a>Evaluación de compliance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title: DISA STIG for Red Hat Enterprise Linux 9
+                                Id: xccdf_org.ssgproject.content_profile_stig
+...
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El profile <strong>DISA STIG</strong> es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title   Record Events that Modify User/Group Information - /etc/shadow
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_usergroup_modification_shadow
+Ident   CCE-83725-2
+Result  fail
+
+Title   System Audit Directories Must Be Group Owned By Root
+Rule    xccdf_org.ssgproject.content_rule_directory_group_ownership_var_log_audit
+Ident   CCE-90516-6
+Result  pass
+...
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Podemos ver como en el ejemplo para cada una de las políticas del estándar, cuáles han pasado el test y cuáles han fallado.</p>
+</div>
+<div class="paragraph">
+<p>También podemos generar un report html a partir del anterior fichero de resultados con:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate report /root/results.xml &gt; results.html
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si abrimos el report vemos lo siguiente:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-evaluacion-report.png" alt="03 evaluacion report">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="customizacion"><a class="anchor" href="#customizacion"></a>Customización de un perfil de compliance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para customizar un perfil de compliance hemos de crear un <code>tailoring file</code>, para ello ejecutaremos el programa de <code>scap-workbench</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# scap-workbench</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El programa carga los <em>data streams</em> que estén instalados en el servidor:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-workbench.png" alt="03 customizacion workbench">
+</div>
+</div>
+<div class="paragraph">
+<p>Vamos a <strong>Customize</strong> y seleccionamos un nombre de perfil. A continuación marcamos <strong>Deselect all</strong>, así empezaremos con todas las reglas deshabilitadas:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-deselect.png" alt="03 customizacion deselect">
+</div>
+</div>
+<div class="paragraph">
+<p>Marcaremos las siguientes opciones <strong>Ensure PAM Enforces Password Requirements - Minimum Lenght</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-pass-req.png" alt="03 customizacion pass req">
+</div>
+</div>
+<div class="paragraph">
+<p>y editamos la opción de <strong>minlen</strong> para setearlo a 12:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-pass-req-12.png" alt="03 customizacion pass req 12">
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación marcaremos la opción para instalar <strong>AIDE</strong> y también para hacer que <strong>audit</strong> registre todas las invocaciones de <strong>sudo</strong> definidas en <strong>sudoers</strong> y en <strong>sudoers.d</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-aide.png" alt="03 customizacion aide">
+</div>
+</div>
+<div class="paragraph">
+<p>Con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/03-customizacion-tailoring-file.png" alt="03 customizacion tailoring file">
+</div>
+</div>
+<div class="paragraph">
+<p>A continuación, vamos a <strong>File &#8594; Save Customization Only</strong>, le damos el nombre de <strong>lab-tailoring.xml</strong> y lo guardamos dentro de <strong>/root</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Con este <em>tailoring file</em>, podemos ejecutar un nuevo scan que sólo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info lab-tailoring.xml
+Document type: XCCDF Tailoring
+Imported: 2024-09-12T15:28:28
+Benchmark Hint: /tmp/scap-workbench-feqbsL/ssg-rhel9-ds.xml
+Profiles:
+        Title: ANSSI-BP-028 (enhanced) [CUSTOMIZED]
+                Id: **xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized**
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vemos que el nombre del perfil nos aparece al final, donde pone Id. Con este nombre de perfil podemos lanzar un scan que compruebe las 4 reglas y guardarlas también en fichero de resultados:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+--- Starting Evaluation ---
+
+Title   Install AIDE
+Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
+Ident   CCE-90843-4
+Result  fail
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Length
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen
+Ident   CCE-83579-3
+Result  fail
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers
+Ident   CCE-90176-9
+Result  fail
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers.d/
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers_d
+Ident   CCE-89498-0
+Result  fail
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vemos que ha fallado el test de las 4 reglas. Para corregirlo, crearemos un <em>playbook</em> de Ansible que lo hará automáticamente.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ansible"><a class="anchor" href="#ansible"></a>Generación de un playbook para aplicar remediaciones de forma automática</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Con el fichero de resultados del anterior apartado <em>/root/lab-results-tailoring.xml</em> podemos crear un playbook usando:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-t
+ailoring.xml &gt; fix.yml
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Necesitamos crear un inventario ya que el <em>playbook</em> tiene la sección <strong>hosts: all</strong> para limitarlo hemos de añadir lo siguiente <strong>echo client &gt; inventory</strong>, y con esto ya podemos ejecutar el playbook generado:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# ansible-playbook -i inventory fix.yml
+
+PLAY [all] *******************************************************************************
+
+TASK [Gathering Facts] *******************************************************************
+ok: [client]
+
+TASK [Ensure aide is installed] **********************************************************
+changed: [client]
+
+TASK [Gather the package facts] **********************************************************
+ok: [client]
+
+TASK [Ensure PAM Enforces Password Requirements - Minimum Length - Ensure PAM variable minlen is set accordingly] ***
+changed: [client]
+
+TASK [Gather the package facts] **********************************************************
+ok: [client]
+
+TASK [Check if watch rule for /etc/sudoers already exists in /etc/audit/rules.d/] ********
+ok: [client]
+
+TASK [Search /etc/audit/rules.d for other rules with specified key actions] **************
+ok: [client]
+
+TASK [Use /etc/audit/rules.d/actions.rules as the recipient for the rule] ****************
+ok: [client]
+
+TASK [Use matched file as the recipient for the rule] ************************************
+skipping: [client]
+
+TASK [Add watch rule for /etc/sudoers in /etc/audit/rules.d/] ****************************
+changed: [client]
+
+TASK [Check if watch rule for /etc/sudoers already exists in /etc/audit/audit.rules] *****
+ok: [client]
+
+TASK [Add watch rule for /etc/sudoers in /etc/audit/audit.rules] *************************
+changed: [client]
+
+TASK [Gather the package facts] **********************************************************
+ok: [client]
+
+TASK [Check if watch rule for /etc/sudoers.d/ already exists in /etc/audit/rules.d/] *****
+ok: [client]
+
+TASK [Search /etc/audit/rules.d for other rules with specified key actions] **************
+ok: [client]
+
+TASK [Use /etc/audit/rules.d/actions.rules as the recipient for the rule] ****************
+skipping: [client]
+
+TASK [Use matched file as the recipient for the rule] ************************************
+ok: [client]
+
+TASK [Add watch rule for /etc/sudoers.d/ in /etc/audit/rules.d/] *************************
+changed: [client]
+
+TASK [Check if watch rule for /etc/sudoers.d/ already exists in /etc/audit/audit.rules] ***
+ok: [client]
+
+TASK [Add watch rule for /etc/sudoers.d/ in /etc/audit/audit.rules] **********************
+changed: [client]
+
+PLAY RECAP *******************************************************************************
+client                     : ok=18   changed=6    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+[root@client ~]#</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un nuevo scan en el servidor nos debería dar los 4 checks como ok:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+--- Starting Evaluation ---
+
+Title   Install AIDE
+Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
+Ident   CCE-90843-4
+Result  pass
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Length
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen
+Ident   CCE-83579-3
+Result  pass
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers
+Ident   CCE-90176-9
+Result  pass
+
+Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers.d/
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers_d
+Ident   CCE-89498-0
+Result  pass
+
+[root@client ~]#</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="02-instalacion.html#instalacion">Instalación de paquetería</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="./_/js/vendor/clipboard.js"></script>
+<script src="./_/js/site.js"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+  </body>
+</html>
