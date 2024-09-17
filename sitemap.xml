@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://redhat-iberia.github.io/microlab-openscap/01-introduccion.html</loc>
-<lastmod>2024-09-17T08:22:27.625Z</lastmod>
+<loc>https://redhat-iberia.github.io/microlab-openscap/openscap/01-introduccion.html</loc>
+<lastmod>2024-09-17T08:42:53.991Z</lastmod>
 </url>
 <url>
-<loc>https://redhat-iberia.github.io/microlab-openscap/02-instalacion.html</loc>
-<lastmod>2024-09-17T08:22:27.625Z</lastmod>
+<loc>https://redhat-iberia.github.io/microlab-openscap/openscap/02-instalacion.html</loc>
+<lastmod>2024-09-17T08:42:53.991Z</lastmod>
 </url>
 <url>
-<loc>https://redhat-iberia.github.io/microlab-openscap/03-compliance.html</loc>
-<lastmod>2024-09-17T08:22:27.625Z</lastmod>
+<loc>https://redhat-iberia.github.io/microlab-openscap/openscap/03-compliance.html</loc>
+<lastmod>2024-09-17T08:42:53.991Z</lastmod>
 </url>
 <url>
-<loc>https://redhat-iberia.github.io/microlab-openscap/index.html</loc>
-<lastmod>2024-09-17T08:22:27.625Z</lastmod>
+<loc>https://redhat-iberia.github.io/microlab-openscap/openscap/index.html</loc>
+<lastmod>2024-09-17T08:42:53.991Z</lastmod>
 </url>
 </urlset>
