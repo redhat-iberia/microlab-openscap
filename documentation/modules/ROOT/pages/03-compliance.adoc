@@ -10,28 +10,33 @@ Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro
 ----
 [root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
-Title: DISA STIG for Red Hat Enterprise Linux 9
-                                Id: xccdf_org.ssgproject.content_profile_stig
+Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced
+				Id: xccdf_org.ssgproject.content_profile_ccn_advanced
 ...
 [root@client ~]#
 ----
 
-El profile *DISA STIG* es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
+En RHEL 9 se incluyen varios perfiles de seguridad implementando las recomendaciones del **Centro Criptológico Nacional (CCN)**:
+
+* **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9.
+* **Centro Criptológico Nacional (CCN) (Intermediate)** para RHEL 9.
+* **Centro Criptológico Nacional (CCN) (Basic)** para RHEL 9.
+
+El profile **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
-Title   Record Events that Modify User/Group Information - /etc/shadow
-Rule    xccdf_org.ssgproject.content_rule_audit_rules_usergroup_modification_shadow
-Ident   CCE-83725-2
-Result  fail
-
-Title   System Audit Directories Must Be Group Owned By Root
-Rule    xccdf_org.ssgproject.content_rule_directory_group_ownership_var_log_audit
-Ident   CCE-90516-6
+Title   System Audit Logs Must Have Mode 0640 or Less Permissive
+Rule    xccdf_org.ssgproject.content_rule_file_permissions_var_log_audit
+Ident   CCE-83720-3
 Result  pass
 ...
+Title   Record Events that Modify the System's Discretionary Access Controls - chmod
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_chmod
+Ident   CCE-83830-0
+Result  fail
 [root@client ~]#
 ----
 
@@ -63,11 +68,11 @@ El programa carga los _data streams_ que estén instalados en el servidor:
 
 image::03-customizacion-workbench.png[]
 
-Vamos a *Customize* y seleccionamos un nombre de perfil. A continuación marcamos *Deselect all*, así empezaremos con todas las reglas deshabilitadas:
+Seleccionamos el profile de **Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced**. Vamos a **Customize** y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos **Deselect all**, así empezaremos con todas las reglas deshabilitadas:
 
 image::03-customizacion-deselect.png[]
 
-Marcaremos las siguientes opciones *Ensure PAM Enforces Password Requirements - Minimum Lenght*:
+Marcaremos las siguientes opciones *Ensure PAM Enforces Password Requirements - Minimum Lenght** y buscamos un poco más arriba la opción de **minlen** para setearlo a **12**:
 
 image::03-customizacion-pass-req.png[]
 
@@ -75,9 +80,11 @@ y editamos la opción de *minlen* para setearlo a 12:
 
 image::03-customizacion-pass-req-12.png[]
 
-A continuación marcaremos la opción para instalar *AIDE* y también para hacer que *audit* registre todas las invocaciones de *sudo* definidas en *sudoers* y en *sudoers.d*:
+A continuación marcaremos la opción para instalar *AIDE* y también para instalar y habilitar el servicio de **USBGuard**:
 
 image::03-customizacion-aide.png[]
+
+> image::icons/information-icon.png[] El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
 
 Con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
 
