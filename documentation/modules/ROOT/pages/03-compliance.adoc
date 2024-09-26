@@ -87,10 +87,7 @@ image::03-customizacion-aide.png[]
 [NOTE]
 =====
 El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
-====
 
-[NOTE]
-====
 El servicio **USBGuard** permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 ====
 
@@ -100,7 +97,7 @@ image::03-customizacion-tailoring-file.png[]
 
 A continuación, vamos a *File -> Save Customization Only*, le damos el nombre de *lab-tailoring.xml* y lo guardamos dentro de */root*.
 
-Con este _tailoring file_, podemos ejecutar un nuevo scan que sólo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:
+Con este _tailoring file_, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:
 
 [source,bash,subs="+macros,+attributes"]
 ----
@@ -155,7 +152,7 @@ Con el fichero de resultados del anterior apartado _/root/lab-results-tailoring.
 [root@client ~]#
 ----
 
-Necesitamos crear un inventario ya que el _playbook_ tiene la sección *hosts: all* para limitarlo hemos de añadir lo siguiente *echo client > inventory*, y con esto ya podemos ejecutar el playbook generado:
+Necesitamos crear un inventario, ya que el _playbook_ tiene la sección *hosts: all* para limitarlo hemos de añadir lo siguiente *echo client > inventory*, y con esto ya podemos ejecutar el playbook generado:
 
 [source,bash,subs="+macros,+attributes"]
 ----
