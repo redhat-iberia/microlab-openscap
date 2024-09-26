@@ -6,6 +6,8 @@ include::_attributes.adoc[]
 
 Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
@@ -31,6 +33,8 @@ Los perfiles incluidos a día de hoy no incluyen todavía cobertura al 100% aunq
 
 El profile **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
@@ -51,6 +55,8 @@ Podemos ver como en el ejemplo para cada una de las políticas del estándar, cu
 
 También podemos generar un report html a partir del anterior fichero de resultados con:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf generate report /root/results.xml > results.html
@@ -66,6 +72,8 @@ image::03-evaluacion-report.png[]
 
 Para customizar un perfil de compliance hemos de crear un `tailoring file`, para ello ejecutaremos el programa de `scap-workbench`:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# scap-workbench
@@ -106,6 +114,8 @@ A continuación, vamos a *File -> Save Customization Only*, le damos el nombre d
 
 Con este _tailoring file_, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap info lab-tailoring.xml 
@@ -120,6 +130,8 @@ Profiles:
 
 Vemos que el nombre del perfil nos aparece al final, donde pone Id. Con este nombre de perfil podemos lanzar un scan que compruebe las 4 reglas y guardarlas también en fichero de resultados:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml 
@@ -153,6 +165,8 @@ Vemos que ha fallado el test de las 4 reglas. Para corregirlo, crearemos un _pla
 
 Con el fichero de resultados del anterior apartado _/root/lab-results-tailoring.xml_ podemos crear un playbook usando:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-tailoring.xml  > fix.yml
@@ -161,6 +175,8 @@ Con el fichero de resultados del anterior apartado _/root/lab-results-tailoring.
 
 Necesitamos crear un inventario, ya que el _playbook_ tiene la sección *hosts: all* para limitarlo hemos de añadir lo siguiente *echo client > inventory*, y con esto ya podemos ejecutar el playbook generado:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# ansible-playbook -i inventory fix.yml
@@ -192,6 +208,8 @@ client                     : ok=6    changed=3    unreachable=0    failed=0    s
 
 Un nuevo scan en el servidor nos debería dar los 4 checks como ok:
 
+[.lines_7]
+[.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml 
