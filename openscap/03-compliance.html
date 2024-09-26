@@ -230,11 +230,26 @@ Result  fail
 <img src="_images/03-customizacion-aide.png" alt="03 customizacion aide">
 </div>
 </div>
-<div class="quoteblock">
-<blockquote>
-
-</blockquote>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>El servicio <strong>AIDE</strong> o <strong>A</strong>dvanced <strong>I</strong>ntrusion <strong>D</strong>etection <strong>S</strong>ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.</p>
 </div>
+<div class="exampleblock">
+<div class="content">
+
+</div>
+</div>
+<div class="paragraph">
+<p>El servicio <strong>USBGuard</strong> permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
 <p>Con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
 </div>
@@ -293,11 +308,9 @@ Result  fail
 <div class="paragraph">
 <p>Vemos que ha fallado el test de las 4 reglas. Para corregirlo, crearemos un <em>playbook</em> de Ansible que lo hará automáticamente.</p>
 </div>
+<div id="ansible" class="paragraph">
+<p>== Generación de un playbook para aplicar remediaciones de forma automática</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="ansible"><a class="anchor" href="#ansible"></a>Generación de un playbook para aplicar remediaciones de forma automática</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Con el fichero de resultados del anterior apartado <em>/root/lab-results-tailoring.xml</em> podemos crear un playbook usando:</p>
 </div>
@@ -369,6 +382,12 @@ Result  pass
 
 [root@client ~]#</code></pre>
 </div>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
