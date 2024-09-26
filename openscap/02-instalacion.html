@@ -112,7 +112,7 @@
 <h2 id="instalacion"><a class="anchor" href="#instalacion"></a>Instalación de OpenSCAP</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema:</p>
+<p>Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso):</p>
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
@@ -120,13 +120,13 @@
 </div>
 </div>
 <div class="paragraph">
-<p>El paquete <strong>openscap-scanner</strong> instala la herramienta <em>oscap</em> desde la cuál podremos lanzar los escaneos de compliance sobre nuestros sistemas, generar reports o incluso generar las remediaciones con Ansible.</p>
+<p>El paquete <strong>openscap-scanner</strong> instala la herramienta <em>oscap</em> desde la cual podremos lanzar los escaneos de compliance sobre nuestros sistemas, generar reports o incluso generar las remediaciones con Ansible.</p>
 </div>
 <div class="paragraph">
 <p>El paquete <strong>scap-security-guide</strong> instala los data streams necesarios en la ruta <em>/usr/share/xml/scap/ssg/content/</em>. Este data stream contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero <em>XCCDF</em> (Extensible Configuration Checklist Description File) <em>ssg-rhel9-xccdf.xml</em>.</p>
 </div>
 <div class="paragraph">
-<p>Por último el paquete <strong>scap-workbench</strong> nos servirá para generar perfiles custom de compliance, como veremos más adelante. Sólo añadir que también permite evaluar el compliance en local o en sistemas remotos a través de <em>SSH</em>.</p>
+<p>Por último el paquete <strong>scap-workbench</strong> nos servirá para generar perfiles custom de compliance, como veremos más adelante. Solamente añadir que también permite evaluar el compliance en local o en sistemas remotos a través de <em>SSH</em>.</p>
 </div>
 </div>
 </div>
