@@ -235,11 +235,6 @@ Result  fail
 
 </blockquote>
 </div>
-<div class="quoteblock">
-<blockquote>
-
-</blockquote>
-</div>
 <div class="paragraph">
 <p>Con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
 </div>
@@ -308,8 +303,7 @@ Result  fail
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-t
-ailoring.xml &gt; fix.yml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-tailoring.xml  &gt; fix.yml
 [root@client ~]#</code></pre>
 </div>
 </div>
@@ -320,70 +314,28 @@ ailoring.xml &gt; fix.yml
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# ansible-playbook -i inventory fix.yml
 
-PLAY [all] *******************************************************************************
+PLAY [all] *************************************************************************************************
 
-TASK [Gathering Facts] *******************************************************************
+TASK [Gathering Facts] *************************************************************************************
 ok: [client]
 
-TASK [Ensure aide is installed] **********************************************************
+TASK [Gather the package facts] ****************************************************************************
+ok: [client]
+
+TASK [Ensure PAM Enforces Password Requirements - Minimum Digit Characters - Ensure PAM variable dcredit is set accordingly] ***
 changed: [client]
 
-TASK [Gather the package facts] **********************************************************
-ok: [client]
-
-TASK [Ensure PAM Enforces Password Requirements - Minimum Length - Ensure PAM variable minlen is set accordingly] ***
+TASK [Ensure usbguard is installed] ************************************************************************
 changed: [client]
 
-TASK [Gather the package facts] **********************************************************
+TASK [Gather the package facts] ****************************************************************************
 ok: [client]
 
-TASK [Check if watch rule for /etc/sudoers already exists in /etc/audit/rules.d/] ********
-ok: [client]
-
-TASK [Search /etc/audit/rules.d for other rules with specified key actions] **************
-ok: [client]
-
-TASK [Use /etc/audit/rules.d/actions.rules as the recipient for the rule] ****************
-ok: [client]
-
-TASK [Use matched file as the recipient for the rule] ************************************
-skipping: [client]
-
-TASK [Add watch rule for /etc/sudoers in /etc/audit/rules.d/] ****************************
+TASK [Enable the USBGuard Service - Enable Service usbguard] ***********************************************
 changed: [client]
 
-TASK [Check if watch rule for /etc/sudoers already exists in /etc/audit/audit.rules] *****
-ok: [client]
-
-TASK [Add watch rule for /etc/sudoers in /etc/audit/audit.rules] *************************
-changed: [client]
-
-TASK [Gather the package facts] **********************************************************
-ok: [client]
-
-TASK [Check if watch rule for /etc/sudoers.d/ already exists in /etc/audit/rules.d/] *****
-ok: [client]
-
-TASK [Search /etc/audit/rules.d for other rules with specified key actions] **************
-ok: [client]
-
-TASK [Use /etc/audit/rules.d/actions.rules as the recipient for the rule] ****************
-skipping: [client]
-
-TASK [Use matched file as the recipient for the rule] ************************************
-ok: [client]
-
-TASK [Add watch rule for /etc/sudoers.d/ in /etc/audit/rules.d/] *************************
-changed: [client]
-
-TASK [Check if watch rule for /etc/sudoers.d/ already exists in /etc/audit/audit.rules] ***
-ok: [client]
-
-TASK [Add watch rule for /etc/sudoers.d/ in /etc/audit/audit.rules] **********************
-changed: [client]
-
-PLAY RECAP *******************************************************************************
-client                     : ok=18   changed=6    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0
+PLAY RECAP *************************************************************************************************
+client                     : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 [root@client ~]#</code></pre>
 </div>
 </div>
@@ -392,7 +344,7 @@ client                     : ok=18   changed=6    unreachable=0    failed=0    s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 --- Starting Evaluation ---
 
 Title   Install AIDE
@@ -400,19 +352,19 @@ Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
 Ident   CCE-90843-4
 Result  pass
 
-Title   Ensure PAM Enforces Password Requirements - Minimum Length
-Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen
-Ident   CCE-83579-3
+Title   Ensure PAM Enforces Password Requirements - Minimum Digit Characters
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_dcredit
+Ident   CCE-83566-0
 Result  pass
 
-Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers
-Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers
-Ident   CCE-90176-9
+Title   Install usbguard Package
+Rule    xccdf_org.ssgproject.content_rule_package_usbguard_installed
+Ident   CCE-84203-9
 Result  pass
 
-Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers.d/
-Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers_d
-Ident   CCE-89498-0
+Title   Enable the USBGuard Service
+Rule    xccdf_org.ssgproject.content_rule_service_usbguard_enabled
+Ident   CCE-84205-4
 Result  pass
 
 [root@client ~]#</code></pre>
