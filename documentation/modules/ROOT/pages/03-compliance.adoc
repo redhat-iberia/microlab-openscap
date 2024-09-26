@@ -22,6 +22,13 @@ En RHEL 9 se incluyen varios perfiles de seguridad implementando las recomendaci
 * **Centro Criptológico Nacional (CCN) (Intermediate)** para RHEL 9.
 * **Centro Criptológico Nacional (CCN) (Basic)** para RHEL 9.
 
+[NOTE]
+====
+Estos perfiles solo se encuentran disponibles para RHEL 9 y no se encuentran disponibles en RHEL 8.
+
+Los perfiles incluidos a día de hoy no incluyen todavía cobertura al 100% aunque cubren la mayoría de las recomendaciones.
+====
+
 El profile **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
 
 [source,bash,subs="+macros,+attributes"]
