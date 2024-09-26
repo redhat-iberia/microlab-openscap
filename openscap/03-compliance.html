@@ -240,11 +240,6 @@ Result  fail
 <div class="paragraph">
 <p>El servicio <strong>AIDE</strong> o <strong>A</strong>dvanced <strong>I</strong>ntrusion <strong>D</strong>etection <strong>S</strong>ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.</p>
 </div>
-<div class="exampleblock">
-<div class="content">
-
-</div>
-</div>
 <div class="paragraph">
 <p>El servicio <strong>USBGuard</strong> permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.</p>
 </div>
@@ -262,7 +257,7 @@ Result  fail
 <p>A continuación, vamos a <strong>File &#8594; Save Customization Only</strong>, le damos el nombre de <strong>lab-tailoring.xml</strong> y lo guardamos dentro de <strong>/root</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Con este <em>tailoring file</em>, podemos ejecutar un nuevo scan que sólo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:</p>
+<p>Con este <em>tailoring file</em>, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -321,7 +316,7 @@ Result  fail
 </div>
 </div>
 <div class="paragraph">
-<p>Necesitamos crear un inventario ya que el <em>playbook</em> tiene la sección <strong>hosts: all</strong> para limitarlo hemos de añadir lo siguiente <strong>echo client &gt; inventory</strong>, y con esto ya podemos ejecutar el playbook generado:</p>
+<p>Necesitamos crear un inventario, ya que el <em>playbook</em> tiene la sección <strong>hosts: all</strong> para limitarlo hemos de añadir lo siguiente <strong>echo client &gt; inventory</strong>, y con esto ya podemos ejecutar el playbook generado:</p>
 </div>
 <div class="listingblock">
 <div class="content">
