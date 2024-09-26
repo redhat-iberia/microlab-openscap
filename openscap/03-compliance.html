@@ -232,16 +232,12 @@ Result  fail
 </div>
 <div class="quoteblock">
 <blockquote>
-<div class="paragraph">
-<p>:information El servicio <strong>AIDE</strong> o <strong>A</strong>dvanced <strong>I</strong>ntrusion <strong>D</strong>etection <strong>S</strong>ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.</p>
-</div>
+
 </blockquote>
 </div>
 <div class="quoteblock">
 <blockquote>
-<div class="paragraph">
-<p>:information El servicio <strong>USBGuard</strong> permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.</p>
-</div>
+
 </blockquote>
 </div>
 <div class="paragraph">
@@ -275,27 +271,26 @@ Profiles:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 --- Starting Evaluation ---
-
 Title   Install AIDE
 Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
 Ident   CCE-90843-4
 Result  fail
 
-Title   Ensure PAM Enforces Password Requirements - Minimum Length
-Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_minlen
-Ident   CCE-83579-3
+Title   Ensure PAM Enforces Password Requirements - Minimum Digit Characters
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_dcredit
+Ident   CCE-83566-0
 Result  fail
 
-Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers
-Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers
-Ident   CCE-90176-9
+Title   Install usbguard Package
+Rule    xccdf_org.ssgproject.content_rule_package_usbguard_installed
+Ident   CCE-84203-9
 Result  fail
 
-Title   Ensure auditd Collects System Administrator Actions - /etc/sudoers.d/
-Rule    xccdf_org.ssgproject.content_rule_audit_rules_sudoers_d
-Ident   CCE-89498-0
+Title   Enable the USBGuard Service
+Rule    xccdf_org.ssgproject.content_rule_service_usbguard_enabled
+Ident   CCE-84205-4
 Result  fail
 [root@client ~]#</code></pre>
 </div>
