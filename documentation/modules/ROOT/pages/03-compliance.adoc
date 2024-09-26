@@ -84,7 +84,7 @@ A continuación marcaremos la opción para instalar *AIDE* y también para insta
 
 image::03-customizacion-aide.png[]
 
-image::icons/information-icon.png[] El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
+image::information-icon.png[] El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
 
 image::icons/information-icon.png[] El servicio **USBGuard** permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 
@@ -100,11 +100,11 @@ Con este _tailoring file_, podemos ejecutar un nuevo scan que sólo compruebe es
 ----
 [root@client ~]# oscap info lab-tailoring.xml 
 Document type: XCCDF Tailoring
-Imported: 2024-09-12T15:28:28
-Benchmark Hint: /tmp/scap-workbench-feqbsL/ssg-rhel9-ds.xml
+Imported: 2024-09-25T15:05:59
+Benchmark Hint: /tmp/scap-workbench-aywUnZ/ssg-rhel9-ds.xml
 Profiles:
-        Title: ANSSI-BP-028 (enhanced) [CUSTOMIZED]
-                Id: **xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced_customized**
+	Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced [CUSTOMIZED]
+		Id: xccdf_org.ssgproject.content_profile_ccn_advanced_customized
 [root@client ~]#
 ----
 
