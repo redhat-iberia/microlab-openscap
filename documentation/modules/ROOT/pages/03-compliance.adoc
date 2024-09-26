@@ -6,7 +6,9 @@ include::_attributes.adoc[]
 
 Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:
 
-[source,console]
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
@@ -102,7 +104,7 @@ image::03-customizacion-aide.png[]
 El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
 
 El servicio **USBGuard** permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-====
+=====
 
 Con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
 
