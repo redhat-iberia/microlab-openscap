@@ -112,7 +112,7 @@
 <div class="paragraph">
 <p>Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
@@ -158,7 +158,7 @@ Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9
 <div class="paragraph">
 <p>El profile <strong>Centro Criptológico Nacional (CCN) (Advanced)</strong> para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
@@ -180,7 +180,7 @@ Result  fail
 <div class="paragraph">
 <p>También podemos generar un report html a partir del anterior fichero de resultados con:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate report /root/results.xml &gt; results.html
 [root@client ~]#</code></pre>
@@ -202,7 +202,7 @@ Result  fail
 <div class="paragraph">
 <p>Para customizar un perfil de compliance hemos de crear un <code>tailoring file</code>, para ello ejecutaremos el programa de <code>scap-workbench</code>:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# scap-workbench</code></pre>
 </div>
@@ -276,7 +276,7 @@ Result  fail
 <div class="paragraph">
 <p>Con este <em>tailoring file</em>, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info lab-tailoring.xml
 Document type: XCCDF Tailoring
@@ -291,7 +291,7 @@ Profiles:
 <div class="paragraph">
 <p>Vemos que el nombre del perfil nos aparece al final, donde pone Id. Con este nombre de perfil podemos lanzar un scan que compruebe las 4 reglas y guardarlas también en fichero de resultados:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 --- Starting Evaluation ---
@@ -326,7 +326,7 @@ Result  fail
 <div class="paragraph">
 <p>Con el fichero de resultados del anterior apartado <em>/root/lab-results-tailoring.xml</em> podemos crear un playbook usando:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-tailoring.xml  &gt; fix.yml
 [root@client ~]#</code></pre>
@@ -335,7 +335,7 @@ Result  fail
 <div class="paragraph">
 <p>Necesitamos crear un inventario, ya que el <em>playbook</em> tiene la sección <strong>hosts: all</strong> para limitarlo hemos de añadir lo siguiente <strong>echo client &gt; inventory</strong>, y con esto ya podemos ejecutar el playbook generado:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# ansible-playbook -i inventory fix.yml
 
@@ -367,7 +367,7 @@ client                     : ok=6    changed=3    unreachable=0    failed=0    s
 <div class="paragraph">
 <p>Un nuevo scan en el servidor nos debería dar los 4 checks como ok:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 --- Starting Evaluation ---
