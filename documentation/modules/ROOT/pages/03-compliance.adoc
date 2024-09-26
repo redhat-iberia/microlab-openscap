@@ -84,9 +84,15 @@ A continuación marcaremos la opción para instalar *AIDE* y también para insta
 
 image::03-customizacion-aide.png[]
 
-> :dart: El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
+[NOTE]
+=====
+El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
+====
 
-:dart: El servicio **USBGuard** permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+[NOTE]
+====
+El servicio **USBGuard** permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+====
 
 Con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
 
