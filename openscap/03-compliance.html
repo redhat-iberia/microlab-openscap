@@ -112,9 +112,9 @@
 <div class="paragraph">
 <p>Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
 Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced
 				Id: xccdf_org.ssgproject.content_profile_ccn_advanced
@@ -260,8 +260,10 @@ Result  fail
 <div class="paragraph">
 <p>El servicio <strong>USBGuard</strong> permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.</p>
 </div>
-<div class="exampleblock">
-<div class="content">
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
 </div>
@@ -320,9 +322,11 @@ Result  fail
 <div class="paragraph">
 <p>Vemos que ha fallado el test de las 4 reglas. Para corregirlo, crearemos un <em>playbook</em> de Ansible que lo hará automáticamente.</p>
 </div>
-<div id="ansible" class="paragraph">
-<p>== Generación de un playbook para aplicar remediaciones de forma automática</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="ansible"><a class="anchor" href="#ansible"></a>Generación de un playbook para aplicar remediaciones de forma automática</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Con el fichero de resultados del anterior apartado <em>/root/lab-results-tailoring.xml</em> podemos crear un playbook usando:</p>
 </div>
@@ -394,12 +398,6 @@ Result  pass
 
 [root@client ~]#</code></pre>
 </div>
-</div>
-</div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
