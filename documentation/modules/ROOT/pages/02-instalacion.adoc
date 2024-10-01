@@ -6,7 +6,7 @@ include::_attributes.adoc[]
 
 Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):
 
-[IMPORTANTE]
+[IMPORTANT]
 ====
 Para el laboratorio utilizar usuario **root** y password **redhat**.
 ====
