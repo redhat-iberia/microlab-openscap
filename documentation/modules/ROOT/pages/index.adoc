@@ -5,6 +5,8 @@
 [.text-center.strong]
 == Resumen
 
+image::connect.png[]
+
 Microlab de OpenScap para Summit Connect Madrid 2024.
 
 El objetivo de este lab es evaluar y comprobar políticas de Openscap usando un perfil estándar de seguridad. 
