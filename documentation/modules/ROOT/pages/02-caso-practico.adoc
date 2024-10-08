@@ -268,4 +268,6 @@ Result  pass
 [root@client ~]#
 ----
 
+image::graduation.png[]
+
 
