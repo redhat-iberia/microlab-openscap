@@ -7,8 +7,6 @@
 
 image::connect.png[]
 
-Microlab de OpenScap para Summit Connect Madrid 2024.
-
 El objetivo de este lab es evaluar y comprobar políticas de Openscap usando un perfil estándar de seguridad. 
 
 Para ello:
@@ -23,11 +21,11 @@ Para ello:
 == Browse modules
 
 [.tile]
-. xref:01-introduccion.adoc[1. Introducción]
+.xref:01-introduccion.adoc[1. Introducción]
 * xref:01-setup.adoc#openscap[OpenScap]
 
 [.tile]
-. xref:02-caso-practico.adoc[2. Caso práctico]
+.xref:02-caso-practico.adoc[2. Caso práctico]
 * xref:02-caso-practico.adoc#descripcion[Descripción]
 * xref:02-caso-practico.adoc#instalacion[Instalación de paquetería]
 * xref:02-caso-practico.adoc#evaluacion[Evaluación de compliance]
@@ -36,5 +34,5 @@ Para ello:
 * xref:02-caso-practico.adoc#next[Siguientes pasos]
 
 [.tile]
-. xref:03-resources.adoc[Recursos]
+.xref:03-resources.adoc[Recursos]
 
