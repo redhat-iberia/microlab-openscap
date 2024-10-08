@@ -176,7 +176,7 @@
 <h2 id="instalacion"><a class="anchor" href="#instalacion"></a>Instalación de OpenSCAP</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):</p>
+<p>Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso, lo hemos añadido para tener toda la información completa. Iniciamos sesión con el usuario <strong>root</strong> en la máquina con la consola <strong>VNC</strong>:</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -304,7 +304,7 @@ Result  fail
 </div>
 </div>
 <div class="paragraph">
-<p>Si abrimos el report vemos lo siguiente:</p>
+<p>Arrancamos <strong>Firefox</strong> y abrimos el report, veremos algo similar a lo siguiente:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -344,7 +344,7 @@ Result  fail
 </div>
 </div>
 <div class="paragraph">
-<p>Seleccionamos el profile de <strong>Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced</strong>. Vamos a <strong>Customize</strong> y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos <strong>Deselect all</strong>, así empezaremos con todas las reglas deshabilitadas:</p>
+<p>Cargamos el contenido de RHEL 9, seleccionamos el profile de <strong>Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced</strong>. Vamos a <strong>Customize</strong> y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos <strong>Deselect all</strong>, así empezaremos con todas las reglas deshabilitadas:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -352,7 +352,7 @@ Result  fail
 </div>
 </div>
 <div class="paragraph">
-<p>Marcaremos las siguientes opciones <strong>Ensure PAM Enforces Password Requirements - Minimum Lenght<strong> y buscamos un poco más arriba la opción de </strong>minlen<strong> para setearlo a </strong>12</strong>*:</p>
+<p>Para buscar las siguientes opciones podemos utilizar el boton <strong>Search</strong> junto con el campo de texto para trabajar más comodamente. Marcaremos las siguientes opciones <strong>Ensure PAM Enforces Password Requirements - Minimum Lenght<strong> y buscamos un poco más arriba la opción de </strong>minlen<strong> para setearlo a </strong>12</strong>*:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -397,7 +397,7 @@ Result  fail
 </table>
 </div>
 <div class="paragraph">
-<p>Con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
+<p>Pinchamos en <strong>Ok</strong>, con lo que tendremos un <strong>tailoring file</strong> con estas 4 reglas definidas:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -412,7 +412,7 @@ Result  fail
 </td>
 <td class="content">
 <div class="paragraph">
-<p>A continuación, vamos a <strong>File &#8594; Save Customization Only</strong>, le damos el nombre de <strong>lab-tailoring.xml</strong> y lo guardamos dentro de <strong>/root</strong>.</p>
+<p>A continuación, vamos a <strong>File &#8594; Save Customization Only</strong>, le damos el nombre de <strong>lab-tailoring.xml</strong> y lo guardamos dentro de <strong>/root</strong>. Cerramos la aplicación.</p>
 </div>
 <div class="paragraph">
 <p>Con este <em>tailoring file</em>, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:</p>
@@ -458,20 +458,25 @@ Result  fail
 [root@client ~]#</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="content">
 <div class="paragraph">
 <p>Vemos que ha fallado el test de las 4 reglas. Para corregirlo, en el siguiente apartado crearemos un <em>playbook</em> de Ansible que lo hará automáticamente.</p>
-</div>
-<div id="ansible" class="paragraph">
-<p>== Generación de un playbook para aplicar remediaciones de forma automática</p>
-</div>
-</div>
 </div>
 </td>
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ansible"><a class="anchor" href="#ansible"></a>Generación de un playbook para aplicar remediaciones de forma automática</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>Con el fichero de resultados del anterior apartado <em>/root/lab-results-tailoring.xml</em> podemos crear un playbook usando:</p>
 </div>
@@ -545,13 +550,13 @@ Result  pass
 [root@client ~]#</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="content">
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/graduation.png" alt="graduation">
-</div>
-</div>
 </div>
 </div>
 </div>
