@@ -1,0 +1,271 @@
+= Instalación
+include::_attributes.adoc[]
+
+[#instalacion]
+== Instalación de OpenSCAP
+
+Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):
+
+[IMPORTANT]
+====
+Para el laboratorio utilizar usuario **root** y password **redhat**.
+====
+
+[IMPORTANT]
+====
+Una vez que termines el laboratorio es MUY importante que cierres sesión para que se resetee el entorno y el siguiente usuario pueda utilizarlo.
+
+Muchas gracias!!!
+====
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# dnf install -y openscap-scanner scap-security-guide scap-workbench
+----
+
+El paquete *openscap-scanner* instala la herramienta _oscap_ desde la cual podremos lanzar los escaneos de compliance sobre nuestros sistemas, generar reports o incluso generar las remediaciones con Ansible.
+
+El paquete *scap-security-guide* instala los **data streams** necesarios en la ruta _/usr/share/xml/scap/ssg/content/_. Este **data stream** contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero _XCCDF_ (Extensible Configuration Checklist Description File) _ssg-rhel9-xccdf.xml_.
+
+Por último el paquete *scap-workbench* nos servirá para generar perfiles custom de compliance, como veremos más adelante. Solamente añadir que también permite evaluar el compliance en local y en sistemas remotos a través de _SSH_.
+
+[#evaluacion]
+== Evaluación de compliance
+
+Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced
+				Id: xccdf_org.ssgproject.content_profile_ccn_advanced
+...
+[root@client ~]#
+----
+
+En RHEL 9 se incluyen varios perfiles de seguridad implementando las recomendaciones del **Centro Criptológico Nacional (CCN)**:
+
+* **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9.
+* **Centro Criptológico Nacional (CCN) (Intermediate)** para RHEL 9.
+* **Centro Criptológico Nacional (CCN) (Basic)** para RHEL 9.
+
+[NOTE]
+====
+Estos perfiles solo se encuentran disponibles para RHEL 9 y no se encuentran disponibles en RHEL 8.
+
+Los perfiles incluidos a día de hoy no incluyen todavía cobertura al 100% aunque cubren la mayoría de las recomendaciones.
+====
+
+El profile **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+...
+Title   System Audit Logs Must Have Mode 0640 or Less Permissive
+Rule    xccdf_org.ssgproject.content_rule_file_permissions_var_log_audit
+Ident   CCE-83720-3
+Result  pass
+...
+Title   Record Events that Modify the System's Discretionary Access Controls - chmod
+Rule    xccdf_org.ssgproject.content_rule_audit_rules_dac_modification_chmod
+Ident   CCE-83830-0
+Result  fail
+[root@client ~]#
+----
+
+Podemos ver como en el ejemplo para cada una de las políticas del estándar, cuáles han pasado el test y cuáles han fallado.
+
+También podemos generar un report html a partir del anterior fichero de resultados con:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap xccdf generate report /root/results.xml > results.html
+[root@client ~]#
+----
+
+Si abrimos el report vemos lo siguiente:
+
+image::03-evaluacion-report.png[]
+
+[#customizacion]
+== Customización de un perfil de compliance
+
+Para customizar un perfil de compliance hemos de crear un `tailoring file`, para ello ejecutaremos el programa de `scap-workbench`:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# scap-workbench
+----
+
+El programa carga los _data streams_ que estén instalados en el servidor:
+
+image::03-customizacion-workbench.png[]
+
+Seleccionamos el profile de **Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced**. Vamos a **Customize** y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos **Deselect all**, así empezaremos con todas las reglas deshabilitadas:
+
+image::03-customizacion-deselect.png[]
+
+Marcaremos las siguientes opciones *Ensure PAM Enforces Password Requirements - Minimum Lenght** y buscamos un poco más arriba la opción de **minlen** para setearlo a **12**:
+
+image::03-customizacion-pass-req.png[]
+
+y editamos la opción de *minlen* para setearlo a 12:
+
+image::03-customizacion-pass-req-12.png[]
+
+A continuación marcaremos la opción para instalar *AIDE* y también para instalar y habilitar el servicio de **USBGuard**:
+
+image::03-customizacion-aide.png[]
+
+[NOTE]
+=====
+El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un servicio que crea una base de datos del archivos del sistema que se utiliza para comprobar la integridad de los ficheros del sistema y poder detectar cuando un fichero del sistema ha sido modificado y poder detectar actividad maliciosa en el sistema.
+
+El servicio **USBGuard** permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+=====
+
+Con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
+
+image::03-customizacion-tailoring-file.png[]
+
+A continuación, vamos a *File -> Save Customization Only*, le damos el nombre de *lab-tailoring.xml* y lo guardamos dentro de */root*.
+
+Con este _tailoring file_, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap info lab-tailoring.xml 
+Document type: XCCDF Tailoring
+Imported: 2024-09-25T15:05:59
+Benchmark Hint: /tmp/scap-workbench-aywUnZ/ssg-rhel9-ds.xml
+Profiles:
+	Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced [CUSTOMIZED]
+		Id: xccdf_org.ssgproject.content_profile_ccn_advanced_customized
+[root@client ~]#
+----
+
+Vemos que el nombre del perfil nos aparece al final, donde pone Id. Con este nombre de perfil podemos lanzar un scan que compruebe las 4 reglas y guardarlas también en fichero de resultados:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml 
+--- Starting Evaluation ---
+Title   Install AIDE
+Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
+Ident   CCE-90843-4
+Result  fail
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Digit Characters
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_dcredit
+Ident   CCE-83566-0
+Result  fail
+
+Title   Install usbguard Package
+Rule    xccdf_org.ssgproject.content_rule_package_usbguard_installed
+Ident   CCE-84203-9
+Result  fail
+
+Title   Enable the USBGuard Service
+Rule    xccdf_org.ssgproject.content_rule_service_usbguard_enabled
+Ident   CCE-84205-4
+Result  fail
+[root@client ~]#
+----
+
+Vemos que ha fallado el test de las 4 reglas. Para corregirlo, crearemos un _playbook_ de Ansible que lo hará automáticamente.
+
+[#ansible]
+== Generación de un playbook para aplicar remediaciones de forma automática
+
+Con el fichero de resultados del anterior apartado _/root/lab-results-tailoring.xml_ podemos crear un playbook usando:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-tailoring.xml  > fix.yml
+[root@client ~]#
+----
+
+Necesitamos crear un inventario, ya que el _playbook_ tiene la sección *hosts: all* para limitarlo hemos de añadir lo siguiente *echo client > inventory*, y con esto ya podemos ejecutar el playbook generado:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# ansible-playbook -i inventory fix.yml
+
+PLAY [all] *************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************
+ok: [client]
+
+TASK [Gather the package facts] ****************************************************************************
+ok: [client]
+
+TASK [Ensure PAM Enforces Password Requirements - Minimum Digit Characters - Ensure PAM variable dcredit is set accordingly] ***
+changed: [client]
+
+TASK [Ensure usbguard is installed] ************************************************************************
+changed: [client]
+
+TASK [Gather the package facts] ****************************************************************************
+ok: [client]
+
+TASK [Enable the USBGuard Service - Enable Service usbguard] ***********************************************
+changed: [client]
+
+PLAY RECAP *************************************************************************************************
+client                     : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+[root@client ~]#
+----
+
+Un nuevo scan en el servidor nos debería dar los 4 checks como ok:
+
+[.lines_7]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
+----
+[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml 
+--- Starting Evaluation ---
+
+Title   Install AIDE
+Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
+Ident   CCE-90843-4
+Result  pass
+
+Title   Ensure PAM Enforces Password Requirements - Minimum Digit Characters
+Rule    xccdf_org.ssgproject.content_rule_accounts_password_pam_dcredit
+Ident   CCE-83566-0
+Result  pass
+
+Title   Install usbguard Package
+Rule    xccdf_org.ssgproject.content_rule_package_usbguard_installed
+Ident   CCE-84203-9
+Result  pass
+
+Title   Enable the USBGuard Service
+Rule    xccdf_org.ssgproject.content_rule_service_usbguard_enabled
+Ident   CCE-84205-4
+Result  pass
+
+[root@client ~]#
+----
+
+

@@ -1,10 +1,8 @@
 * xref:01-introduccion.adoc[1. Introducción]
 ** xref:01-setup.adoc#resumen[Resumen]
 
-* xref:02-Instalación.adoc[2. Instalación de OpenScap]
-** xref:02-instalacion.adoc#instalacion[Instalación de paquetería]
-
-* xref:03-compliance.adoc[3. Ejecución de compliance con OpenSCAP]
-** xref:03-compliance.adoc#evaluacion[Evaluación de compliance]
-** xref:03-compliance.adoc#customizacion[Customización de un perfil de compliance]
-** xref:03-compliance.adoc#ansible[Generación de un playbook para aplicar remediaciones de forma automática]
+* xref:02-caso-practico.adoc[2. Instalación de OpenScap]
+** xref:02-caso-practico.adoc#instalacion[Instalación de paquetería]
+** xref:02-caso-practico.adoc#evaluacion[Evaluación de compliance]
+** xref:02-caso-practico.adoc#customizacion[Customización de un perfil de compliance]
+** xref:02-caso-practico.adoc#ansible[Generación de un playbook para aplicar remediaciones de forma automática]

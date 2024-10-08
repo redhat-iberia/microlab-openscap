@@ -28,5 +28,5 @@ Para ello:
 
 [.tile]
 .xref:02-deploy.adoc[Deploying]
-* xref:02-deploy.adoc#package[Package the Application]
-* xref:02-deploy.adoc#deploy[Deploy the Application]
+* xref:02-caso-practico.adoc#package[Package the Application]
+* xref:02-caso-practico.adoc#deploy[Deploy the Application]
