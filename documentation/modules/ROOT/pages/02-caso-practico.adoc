@@ -114,11 +114,11 @@ También podemos generar un report html a partir del anterior fichero de resulta
 [root@client ~]# oscap xccdf generate report /root/results.xml > results.html
 [root@client ~]#
 ----
-=====
 
 Si abrimos el report vemos lo siguiente:
 
 image::03-evaluacion-report.png[]
+=====
 
 [#customizacion]
 == Customización de un perfil de compliance
@@ -137,7 +137,6 @@ Para customizar un perfil de compliance hemos de crear un `tailoring file`, para
 El programa carga los _data streams_ que estén instalados en el servidor:
 
 image::03-customizacion-workbench.png[]
-=====
 
 Seleccionamos el profile de **Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced**. Vamos a **Customize** y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos **Deselect all**, así empezaremos con todas las reglas deshabilitadas:
 
@@ -154,6 +153,7 @@ image::03-customizacion-pass-req-12.png[]
 A continuación marcaremos la opción para instalar *AIDE* y también para instalar y habilitar el servicio de **USBGuard**:
 
 image::03-customizacion-aide.png[]
+=====
 
 [NOTE]
 =====
