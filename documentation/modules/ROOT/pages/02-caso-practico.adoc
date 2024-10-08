@@ -32,7 +32,7 @@ Muchas gracias!!!
 [#instalacion]
 == Instalación de OpenSCAP
 
-Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):
+Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso, lo hemos añadido para tener toda la información completa. Iniciamos sesión con el usuario **root** en la máquina con la consola **VNC**:
 
 [TIP]
 =====
@@ -117,7 +117,7 @@ También podemos generar un report html a partir del anterior fichero de resulta
 [root@client ~]#
 ----
 
-Si abrimos el report vemos lo siguiente:
+Arrancamos **Firefox** y abrimos el report, veremos algo similar a lo siguiente:
 
 image::03-evaluacion-report.png[]
 =====
@@ -140,11 +140,11 @@ El programa carga los _data streams_ que estén instalados en el servidor:
 
 image::03-customizacion-workbench.png[]
 
-Seleccionamos el profile de **Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced**. Vamos a **Customize** y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos **Deselect all**, así empezaremos con todas las reglas deshabilitadas:
+Cargamos el contenido de RHEL 9, seleccionamos el profile de **Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced**. Vamos a **Customize** y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos **Deselect all**, así empezaremos con todas las reglas deshabilitadas:
 
 image::03-customizacion-deselect.png[]
 
-Marcaremos las siguientes opciones *Ensure PAM Enforces Password Requirements - Minimum Lenght** y buscamos un poco más arriba la opción de **minlen** para setearlo a **12**:
+Para buscar las siguientes opciones podemos utilizar el boton **Search** junto con el campo de texto para trabajar más comodamente. Marcaremos las siguientes opciones *Ensure PAM Enforces Password Requirements - Minimum Lenght** y buscamos un poco más arriba la opción de **minlen** para setearlo a **12**:
 
 image::03-customizacion-pass-req.png[]
 
@@ -164,13 +164,13 @@ El servicio **AIDE** o **A**dvanced **I**ntrusion **D**etection **S**ystem es un
 El servicio **USBGuard** permite securizar el acceso a los puertos USB pudiendo configurar que tipo de dispositivos USB se pueden configurar en el sistema y que usuario está autorizado a conectarlos.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 =====
 
-Con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
+Pinchamos en **Ok**, con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
 
 image::03-customizacion-tailoring-file.png[]
 
 [TIP]
 =====
-A continuación, vamos a *File -> Save Customization Only*, le damos el nombre de *lab-tailoring.xml* y lo guardamos dentro de */root*.
+A continuación, vamos a *File -> Save Customization Only*, le damos el nombre de *lab-tailoring.xml* y lo guardamos dentro de */root*. Cerramos la aplicación.
 
 Con este _tailoring file_, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:
 
@@ -217,10 +217,10 @@ Ident   CCE-84205-4
 Result  fail
 [root@client ~]#
 ----
-====
 
 Vemos que ha fallado el test de las 4 reglas. Para corregirlo, en el siguiente apartado crearemos un _playbook_ de Ansible que lo hará automáticamente.
 
+=====
 [#ansible]
 == Generación de un playbook para aplicar remediaciones de forma automática
 
