@@ -1,12 +1,14 @@
 = Introducción
 include::_attributes.adoc[]
 
-[#resumen]
-== Resumen
+[#openscap]
+== OpenScap
 
-El objetivo de este lab es evaluar y comprobar políticas de Openscap usando un perfil estándar de seguridad. Para ello comprobaremos si nuestros servidores son compliance usando el perfil de **Centro Criptológico Nacional (CCN) para RHEL 9**. 
+El NIST ha publicado un conjunto de especificaciones para estandarizar la gestión de información de seguridad, este conjunto de especificaciones recibe el nombre de **Security Content Automation Protocol** o **SCAP**.
 
-Después aplicaremos una customización sencilla partiendo de ese perfil, comprobaremos parámetros de password de los usuarios, instalaremos software y chequearemos que un servicio está habilitado. Finalmente, generaremos una remediación con Ansible para aquellos checks de compliance que no cumplimos y la aplicaremos en los servidores.
+**OpenSCAP** es una implementación Open Source de estas especificaciones. 
+
+**OpenScap** provee un conjunto de utilidades que nos permiten comprobar el nivel de compliance de un conjunto de equipos así como generar playbooks de ansible o scripts bash para proceder a remediar todos aquellos puntos con los que no se sea compliance.
 
 En este workshop la parte práctica que tiene que realizar el alumno vendrá indicada de la siguiente forma:
 
