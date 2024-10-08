@@ -12,7 +12,7 @@ La infraestructura que utilizarás para esta laboratorio es la siguiente:
 
 image::diagram.png[]
 
-* Un portátil con Red Hat Enterprise Linux 9.4.
+* Un portátil con Red Hat Enterprise Linux 9.4 como workstation.
 * Una máquina virtual con Red Hat Enterprise Linux 9.4 y hostname **openscap** que utilizarás para el laboratorio.
 
 [IMPORTANT]
@@ -32,6 +32,8 @@ Muchas gracias!!!
 
 Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):
 
+[TIP]
+=====
 [.lines_7]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -39,17 +41,20 @@ Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda l
 [root@client ~]# dnf install -y openscap-scanner scap-security-guide scap-workbench
 ----
 
-El paquete *openscap-scanner* instala la herramienta _oscap_ desde la cual podremos lanzar los escaneos de compliance sobre nuestros sistemas, generar reports o incluso generar las remediaciones con Ansible.
+El paquete **openscap-scanner** instala la herramienta _oscap_ desde la cual podremos lanzar los escaneos de compliance sobre nuestros sistemas, generar reports o incluso generar las remediaciones con Ansible.
 
-El paquete *scap-security-guide* instala los **data streams** necesarios en la ruta _/usr/share/xml/scap/ssg/content/_. Este **data stream** contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero _XCCDF_ (Extensible Configuration Checklist Description File) _ssg-rhel9-xccdf.xml_.
+El paquete **scap-security-guide** instala los **data streams** necesarios en la ruta _/usr/share/xml/scap/ssg/content/_. Este **data stream** contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero _XCCDF_ (Extensible Configuration Checklist Description File) _ssg-rhel9-xccdf.xml_.
 
-Por último el paquete *scap-workbench* nos servirá para generar perfiles custom de compliance, como veremos más adelante. Solamente añadir que también permite evaluar el compliance en local y en sistemas remotos a través de _SSH_.
+Por último el paquete **scap-workbench** nos servirá para generar perfiles custom de compliance, como veremos más adelante. Solamente añadir que también permite evaluar el compliance en local y en sistemas remotos a través de _SSH_.
+=====
 
 [#evaluacion]
 == Evaluación de compliance
 
 Podemos ver todos los perfiles disponibles para evaluar el compliance de nuestro sistema con el comando:
 
+[TIP]
+=====
 [.lines_7]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
@@ -61,6 +66,7 @@ Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9
 ...
 [root@client ~]#
 ----
+=====
 
 En RHEL 9 se incluyen varios perfiles de seguridad implementando las recomendaciones del **Centro Criptológico Nacional (CCN)**:
 
@@ -75,6 +81,8 @@ Estos perfiles solo se encuentran disponibles para RHEL 9 y no se encuentran dis
 Los perfiles incluidos a día de hoy no incluyen todavía cobertura al 100% aunque cubren la mayoría de las recomendaciones.
 ====
 
+[TIP]
+=====
 El profile **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
 
 [.lines_7]
@@ -106,6 +114,7 @@ También podemos generar un report html a partir del anterior fichero de resulta
 [root@client ~]# oscap xccdf generate report /root/results.xml > results.html
 [root@client ~]#
 ----
+=====
 
 Si abrimos el report vemos lo siguiente:
 
