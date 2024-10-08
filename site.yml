@@ -15,7 +15,6 @@ asciidoc:
   attributes:
     release-version: master
     page-pagination: true
-    source-highlighter: ~
 
   extensions:
     - ./lib/tab-block.js

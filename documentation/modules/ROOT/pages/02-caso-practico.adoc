@@ -86,8 +86,7 @@ Los perfiles incluidos a día de hoy no incluyen todavía cobertura al 100% aunq
 El profile **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
 
 [.lines_7]
-[.console-input]
-[source,bash,subs="+macros,+attributes"]
+[source,bash]
 ----
 [root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
