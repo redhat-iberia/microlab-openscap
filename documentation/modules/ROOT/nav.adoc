@@ -2,6 +2,7 @@
 ** xref:01-setup.adoc#openscap[OpenScap]
 
 * xref:02-caso-practico.adoc[2. Caso práctico]
+** xref:02-caso-practico.adoc#descripcion[Descripción]
 ** xref:02-caso-practico.adoc#instalacion[Instalación de paquetería]
 ** xref:02-caso-practico.adoc#evaluacion[Evaluación de compliance]
 ** xref:02-caso-practico.adoc#customizacion[Customización de un perfil de compliance]
