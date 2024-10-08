@@ -182,7 +182,7 @@
 <td class="content">
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# dnf install -y openscap-scanner scap-security-guide scap-workbench</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# dnf install -y openscap-scanner scap-security-guide scap-workbench</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -215,7 +215,7 @@
 <td class="content">
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# oscap info /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
 Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced
 				Id: xccdf_org.ssgproject.content_profile_ccn_advanced
@@ -272,7 +272,7 @@ Title: Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
 Title   System Audit Logs Must Have Mode 0640 or Less Permissive
 Rule    xccdf_org.ssgproject.content_rule_file_permissions_var_log_audit
@@ -294,13 +294,9 @@ Result  fail
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate report /root/results.xml &gt; results.html
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# oscap xccdf generate report /root/results.xml &gt; results.html
 [root@client ~]#</code></pre>
 </div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>Si abrimos el report vemos lo siguiente:</p>
@@ -309,6 +305,10 @@ Result  fail
 <div class="content">
 <img src="_images/03-evaluacion-report.png" alt="03 evaluacion report">
 </div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -327,7 +327,7 @@ Result  fail
 <td class="content">
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# scap-workbench</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# scap-workbench</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -337,10 +337,6 @@ Result  fail
 <div class="content">
 <img src="_images/03-customizacion-workbench.png" alt="03 customizacion workbench">
 </div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>Seleccionamos el profile de <strong>Centro Criptológico Nacional (CCN) - STIC for Red Hat Enterprise Linux 9 - Advanced</strong>. Vamos a <strong>Customize</strong> y seleccionamos un nombre de perfil, dejaremos el que crea por defecto. A continuación marcamos <strong>Deselect all</strong>, así empezaremos con todas las reglas deshabilitadas:</p>
@@ -373,6 +369,10 @@ Result  fail
 <div class="content">
 <img src="_images/03-customizacion-aide.png" alt="03 customizacion aide">
 </div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -407,7 +407,7 @@ Result  fail
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap info lab-tailoring.xml
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# oscap info lab-tailoring.xml
 Document type: XCCDF Tailoring
 Imported: 2024-09-25T15:05:59
 Benchmark Hint: /tmp/scap-workbench-aywUnZ/ssg-rhel9-ds.xml
@@ -422,7 +422,7 @@ Profiles:
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 --- Starting Evaluation ---
 Title   Install AIDE
 Rule    xccdf_org.ssgproject.content_rule_package_aide_installed
@@ -459,7 +459,7 @@ Result  fail
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-tailoring.xml  &gt; fix.yml
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# oscap xccdf generate fix --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --fix-type ansible --result-id "" /root/lab-results-tailoring.xml  &gt; fix.yml
 [root@client ~]#</code></pre>
 </div>
 </div>
@@ -468,7 +468,7 @@ Result  fail
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# ansible-playbook -i inventory fix.yml
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# ansible-playbook -i inventory fix.yml
 
 PLAY [all] *************************************************************************************************
 
@@ -500,7 +500,7 @@ client                     : ok=6    changed=3    unreachable=0    failed=0    s
 </div>
 <div class="listingblock lines_7 console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
+<pre class="highlight"><code class="language-bash" data-lang="bash">[root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced_customized --tailoring-file lab-tailoring.xml --results /root/lab-results-tailoring.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 --- Starting Evaluation ---
 
 Title   Install AIDE
