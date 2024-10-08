@@ -303,6 +303,21 @@ Result  pass
 ----
 =====
 
+[#next]
+== Siguientes pasos
+
+Acabamos de ver como ejecutar un compliance sobre un servidor y como crear un compliance customizado para aplicar. Todo ello lo hemos hecho de forma manual para ilustrar y comprender el proceso.
+
+En nuestro día a día necesitaremos aplicarlo a varias máquinas y realizarlo a escala. Es en esta parte donde entran **Red Hat Satellite** y **Red Hat Insights**:
+
+image::openscap-insights.png[]
+
+**Red Hat Insights** es un servicio SAS que se encuentra disponible, sin coste adicional, con la subscripción de RHEL.
+
+Mediante el uso de **Red Hat Satellite** y **Red Hat Insights** podemos gestionar de forma sencilla el compliance de múltiples máquinas.
+
+Si deseas conocer más nos puedes preguntar durante el evento o bien puedes hablar con el equipo de cuenta de Red Hat en tu empresa y pedirles una sesión con los especialistas de RHEL.
+
 image::graduation.png[]
 
 

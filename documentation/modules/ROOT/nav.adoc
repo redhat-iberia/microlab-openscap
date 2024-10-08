@@ -7,5 +7,6 @@
 ** xref:02-caso-practico.adoc#evaluacion[Evaluación de compliance]
 ** xref:02-caso-practico.adoc#customizacion[Customización de un perfil de compliance]
 ** xref:02-caso-practico.adoc#ansible[Generación de un playbook para aplicar remediaciones de forma automática]
+** xref:02-caso-practico.adoc#next[Siguientes pasos]
 
 * xref:03-resources.adoc[Recursos]
