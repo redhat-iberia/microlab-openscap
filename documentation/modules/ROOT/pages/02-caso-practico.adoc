@@ -17,7 +17,9 @@ image::diagram.png[]
 
 [IMPORTANT]
 ====
-Para el laboratorio utilizar usuario **root** y password **redhat** para acceder a la máquina **openscap**.
+Para el laboratorio utilizar usuario **root** y password **redhat** para acceder a la máquina **openscap** utilizando el launcher disponible en la barra de herramientas.
+
+image::openscap-vnc.png[]
 ====
 
 [IMPORTANT]
