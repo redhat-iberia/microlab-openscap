@@ -8,6 +8,13 @@ En este caso práctico el objetivo es evaluar y comprobar políticas de Openscap
 
 Después aplicaremos una customización sencilla partiendo de ese perfil, comprobaremos parámetros de password de los usuarios, instalaremos software y chequearemos que un servicio está habilitado. Finalmente, generaremos una remediación con Ansible para aquellos checks de compliance que no cumplimos y la aplicaremos en los servidores.
 
+La infraestructura que utilizarás para esta laboratorio es la siguiente:
+
+image::diagram.png[]
+
+* Un portátil con Red Hat Enterprise Linux 9.4.
+* Una máquina virtual con Red Hat Enterprise Linux 9.4 y hostname **openscap** que utilizarás para el laboratorio.
+
 [#instalacion]
 == Instalación de OpenSCAP
 
