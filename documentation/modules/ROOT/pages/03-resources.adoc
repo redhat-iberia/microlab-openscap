@@ -1,3 +1,9 @@
 = Recursos sobre OpenScap
 include::_attributes.adoc[]
 
+* https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/security_hardening/index#scanning-the-system-for-configuration-compliance-and-vulnerabilities_security-hardening[Scanning the system for configuration compliance and vulnerabilities]
+* https://docs.redhat.com/en/documentation/red_hat_satellite/6.15/html-single/managing_security_compliance/index[Managing Security Compliance with OpenScap and Red Hat Satellite]
+* https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html-single/assessing_and_monitoring_security_policy_compliance_of_rhel_systems/index[Managing Security Compliance with OpenScap and Red Hat Insights]
+* https://www.redhat.com/en/blog/getting-started-red-hat-insights-and-openscap-compliance-reporting[Getting started with Red Hat Insights and OpenSCAP for compliance reporting]
+* https://www.youtube.com/watch?v=R6wM3ULsVB8[How to Install and Run OpenSCAP on RHEL]
+* https://www.youtube.com/watch?v=W8NEoRNuE8Y[ Security: Intro to OpenSCAP | Into the Terminal 61 ]
