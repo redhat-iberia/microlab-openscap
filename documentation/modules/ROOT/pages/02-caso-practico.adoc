@@ -86,7 +86,8 @@ Los perfiles incluidos a día de hoy no incluyen todavía cobertura al 100% aunq
 El profile **Centro Criptológico Nacional (CCN) (Advanced)** para RHEL 9 es el que nosotros usaremos. Para evaluar el compliance usando este estándar y guardar los resultados en un fichero ejecutaremos:
 
 [.lines_7]
-[source,bash]
+[.console-input]
+[source,bash,subs="+macros,+attributes"]
 ----
 [root@client ~]# oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_ccn_advanced --results /root/results.xml /usr/share/xml/scap/ssg/content/ssg-rhel9-ds.xml
 ...
@@ -165,6 +166,8 @@ Con lo que tendremos un *tailoring file* con estas 4 reglas definidas:
 
 image::03-customizacion-tailoring-file.png[]
 
+[TIP]
+=====
 A continuación, vamos a *File -> Save Customization Only*, le damos el nombre de *lab-tailoring.xml* y lo guardamos dentro de */root*.
 
 Con este _tailoring file_, podemos ejecutar un nuevo scan que solo compruebe estas 4 reglas que hemos añadido al perfil vacío. Para ello, primero necesitamos obtener el nombre del perfil ya que lo hemos customizado:
@@ -212,12 +215,15 @@ Ident   CCE-84205-4
 Result  fail
 [root@client ~]#
 ----
+====
 
-Vemos que ha fallado el test de las 4 reglas. Para corregirlo, crearemos un _playbook_ de Ansible que lo hará automáticamente.
+Vemos que ha fallado el test de las 4 reglas. Para corregirlo, en el siguiente apartado crearemos un _playbook_ de Ansible que lo hará automáticamente.
 
 [#ansible]
 == Generación de un playbook para aplicar remediaciones de forma automática
 
+[TIP]
+=====
 Con el fichero de resultados del anterior apartado _/root/lab-results-tailoring.xml_ podemos crear un playbook usando:
 
 [.lines_7]
@@ -228,12 +234,13 @@ Con el fichero de resultados del anterior apartado _/root/lab-results-tailoring.
 [root@client ~]#
 ----
 
-Necesitamos crear un inventario, ya que el _playbook_ tiene la sección *hosts: all* para limitarlo hemos de añadir lo siguiente *echo client > inventory*, y con esto ya podemos ejecutar el playbook generado:
+Necesitamos crear un inventario, ya que el _playbook_ tiene la sección *hosts: all* para limitarlo hemos de añadir lo siguiente **echo client > inventory**., de esta forma el playbook solo se ejecutará en la máquina **client**:
 
 [.lines_7]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
 ----
+[root@client ~]# echo client > inventory
 [root@client ~]# ansible-playbook -i inventory fix.yml
 
 PLAY [all] *************************************************************************************************
@@ -292,6 +299,7 @@ Result  pass
 
 [root@client ~]#
 ----
+=====
 
 image::graduation.png[]
 
