@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://redhat-iberia.github.io/microlab-openscap/openscap/01-introduccion.html</loc>
-<lastmod>2024-10-08T12:27:00.658Z</lastmod>
+<lastmod>2024-10-08T12:31:45.066Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-iberia.github.io/microlab-openscap/openscap/02-caso-practico.html</loc>
-<lastmod>2024-10-08T12:27:00.658Z</lastmod>
+<lastmod>2024-10-08T12:31:45.066Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-iberia.github.io/microlab-openscap/openscap/03-compliance.html</loc>
-<lastmod>2024-10-08T12:27:00.658Z</lastmod>
+<lastmod>2024-10-08T12:31:45.066Z</lastmod>
+</url>
+<url>
+<loc>https://redhat-iberia.github.io/microlab-openscap/openscap/03-resources.html</loc>
+<lastmod>2024-10-08T12:31:45.066Z</lastmod>
 </url>
 <url>
 <loc>https://redhat-iberia.github.io/microlab-openscap/openscap/index.html</loc>
-<lastmod>2024-10-08T12:27:00.658Z</lastmod>
+<lastmod>2024-10-08T12:31:45.066Z</lastmod>
 </url>
 </urlset>
