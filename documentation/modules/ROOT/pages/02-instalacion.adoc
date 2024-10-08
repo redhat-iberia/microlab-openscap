@@ -11,6 +11,13 @@ Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda l
 Para el laboratorio utilizar usuario **root** y password **redhat**.
 ====
 
+[IMPORTANT]
+====
+Una vez que termines el laboratorio es MUY importante que cierres sesión para que se resetee el entorno y el siguiente usuario pueda utilizarlo.
+
+Muchas gracias!!!
+====
+
 [.lines_7]
 [.console-input]
 [source,bash,subs="+macros,+attributes"]
