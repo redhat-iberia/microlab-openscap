@@ -23,10 +23,18 @@ Para ello:
 == Browse modules
 
 [.tile]
-.xref:01-introduccion.adoc[Get Started]
-* xref:01-introduccion.adoc#minikube[Minikube]
+. xref:01-introduccion.adoc[1. Introducción]
+* xref:01-setup.adoc#openscap[OpenScap]
 
 [.tile]
-.xref:02-deploy.adoc[Deploying]
-* xref:02-caso-practico.adoc#package[Package the Application]
-* xref:02-caso-practico.adoc#deploy[Deploy the Application]
+. xref:02-caso-practico.adoc[2. Caso práctico]
+* xref:02-caso-practico.adoc#descripcion[Descripción]
+* xref:02-caso-practico.adoc#instalacion[Instalación de paquetería]
+* xref:02-caso-practico.adoc#evaluacion[Evaluación de compliance]
+* xref:02-caso-practico.adoc#customizacion[Customización de un perfil de compliance]
+* xref:02-caso-practico.adoc#ansible[Generación de un playbook para aplicar remediaciones de forma automática]
+* xref:02-caso-practico.adoc#next[Siguientes pasos]
+
+[.tile]
+. xref:03-resources.adoc[Recursos]
+
