@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ejecución de compliance con OpenSCAP :: Gestión del compliance con OpenSCAP</title>
-    <link rel="canonical" href="https://redhat-iberia.github.io/microlab-openscap/openscap/03-compliance.html">
+    <title>Instalación :: Gestión del compliance con OpenSCAP</title>
+    <link rel="canonical" href="https://redhat-iberia.github.io/microlab-openscap/openscap/02-caso-practico.html">
+    <link rel="prev" href="#01-setup.adoc#resumen">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -58,21 +59,21 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="02-caso-practico.html">2. Instalación de OpenScap</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02-caso-practico.html#instalacion">Instalación de paquetería</a>
+    <a class="nav-link" href="#instalacion">Instalación de paquetería</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02-caso-practico.html#evaluacion">Evaluación de compliance</a>
+    <a class="nav-link" href="#evaluacion">Evaluación de compliance</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02-caso-practico.html#customizacion">Customización de un perfil de compliance</a>
+    <a class="nav-link" href="#customizacion">Customización de un perfil de compliance</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="02-caso-practico.html#ansible">Generación de un playbook para aplicar remediaciones de forma automática</a>
+    <a class="nav-link" href="#ansible">Generación de un playbook para aplicar remediaciones de forma automática</a>
   </li>
 </ul>
   </li>
@@ -91,14 +92,67 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Gestión del compliance con OpenSCAP</a></li>
-    <li><a href="03-compliance.html">Ejecución de compliance con OpenSCAP</a></li>
+    <li><a href="02-caso-practico.html">2. Instalación de OpenScap</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-iberia/microlab-openscap/edit/master/documentation/modules/ROOT/pages/03-compliance.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-iberia/microlab-openscap/edit/master/documentation/modules/ROOT/pages/02-caso-practico.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Ejecución de compliance con OpenSCAP</h1>
+<h1 class="page">Instalación</h1>
+<div class="sect1">
+<h2 id="instalacion"><a class="anchor" href="#instalacion"></a>Instalación de OpenSCAP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Para el laboratorio utilizar usuario <strong>root</strong> y password <strong>redhat</strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Una vez que termines el laboratorio es MUY importante que cierres sesión para que se resetee el entorno y el siguiente usuario pueda utilizarlo.</p>
+</div>
+<div class="paragraph">
+<p>Muchas gracias!!!</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock lines_7 console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[root@client ~]# dnf install -y openscap-scanner scap-security-guide scap-workbench</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>El paquete <strong>openscap-scanner</strong> instala la herramienta <em>oscap</em> desde la cual podremos lanzar los escaneos de compliance sobre nuestros sistemas, generar reports o incluso generar las remediaciones con Ansible.</p>
+</div>
+<div class="paragraph">
+<p>El paquete <strong>scap-security-guide</strong> instala los <strong>data streams</strong> necesarios en la ruta <em>/usr/share/xml/scap/ssg/content/</em>. Este <strong>data stream</strong> contiene la información de todos los perfiles de SCAP con sus reglas asociadas para evaluar el compliance de un scan o también para generar las remediaciones. Esta información está en el fichero <em>XCCDF</em> (Extensible Configuration Checklist Description File) <em>ssg-rhel9-xccdf.xml</em>.</p>
+</div>
+<div class="paragraph">
+<p>Por último el paquete <strong>scap-workbench</strong> nos servirá para generar perfiles custom de compliance, como veremos más adelante. Solamente añadir que también permite evaluar el compliance en local y en sistemas remotos a través de <em>SSH</em>.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="evaluacion"><a class="anchor" href="#evaluacion"></a>Evaluación de compliance</h2>
 <div class="sectionbody">
@@ -394,6 +448,9 @@ Result  pass
 </div>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="#01-setup.adoc#resumen">Resumen</a></span>
+</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
