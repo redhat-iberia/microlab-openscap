@@ -15,14 +15,9 @@ image::diagram.png[]
 * Un portátil con Red Hat Enterprise Linux 9.4.
 * Una máquina virtual con Red Hat Enterprise Linux 9.4 y hostname **openscap** que utilizarás para el laboratorio.
 
-[#instalacion]
-== Instalación de OpenSCAP
-
-Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):
-
 [IMPORTANT]
 ====
-Para el laboratorio utilizar usuario **root** y password **redhat**.
+Para el laboratorio utilizar usuario **root** y password **redhat** para acceder a la máquina **openscap**.
 ====
 
 [IMPORTANT]
@@ -31,6 +26,11 @@ Una vez que termines el laboratorio es MUY importante que cierres sesión para q
 
 Muchas gracias!!!
 ====
+
+[#instalacion]
+== Instalación de OpenSCAP
+
+Todo el lab se ejecutará en el mismo servidor, por ello vamos a instalar toda la paquetería en el mismo sistema (la imagen que hemos instalado ya tiene los paquetes necesarios por lo que no hace falta este paso,  lo hemos añadido para tener toda la información completa):
 
 [.lines_7]
 [.console-input]
