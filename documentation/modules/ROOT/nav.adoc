@@ -1,5 +1,5 @@
 * xref:01-introduccion.adoc[1. Introducción]
-** xref:01-setup.adoc#openscap[OpenScap]
+** xref:01-introduccion.adoc#openscap[OpenScap]
 
 * xref:02-caso-practico.adoc[2. Caso práctico]
 ** xref:02-caso-practico.adoc#descripcion[Descripción]
